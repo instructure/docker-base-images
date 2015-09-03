@@ -2,9 +2,12 @@ FROM instructure/ruby:2.2
 MAINTAINER Instructure
 
 USER root
+
 #Install Instructure Nginx with Passenger from official repository
-ENV DEBIAN_FRONTEND=noninteractive
-RUN  apt-get update \
+RUN  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 \
+  && apt-get install -y apt-transport-https ca-certificates \
+  && sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main > /etc/apt/sources.list.d/passenger.list' \
+  && apt-get update \
   && apt-get install -y --no-install-recommends nginx-extras passenger \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
