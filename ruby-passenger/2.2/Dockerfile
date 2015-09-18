@@ -21,6 +21,13 @@ RUN  echo 'docker ALL=(ALL) NOPASSWD: SETENV: /usr/sbin/nginx' >> /etc/sudoers \
 RUN  ln -sf /dev/stdout /var/log/nginx/access.log \
   && ln -sf /dev/stderr /var/log/nginx/error.log
 
+#Sensu check
+COPY passenger_metrics.rb /monitoring/sensu/
+COPY passenger_check /monitoring/sensu/
+RUN chmod +x /monitoring/sensu/passenger_metrics.rb /monitoring/sensu/passenger_check \
+  && gem install sensu-plugin nokogiri
+
+
 USER docker
 COPY nginx.conf.erb /usr/src/nginx/nginx.conf.erb
 COPY entrypoint /usr/src/entrypoint
