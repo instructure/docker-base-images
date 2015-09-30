@@ -10,8 +10,7 @@ making sure to change the ownership of these files to docker:docker (`RUN chown 
 4. No need to set CMD/ENTRYPOINT, this base image already has it set
 5. Build your new container and run it
 6. View your app on port 80 (already exposed for you)
-7. Instructure IPO
-8. Profit
+7. Profit
 
 ## App Env (RAILS_ENV)
 RAILS_ENV and RACK_ENV default to production. To override this for
